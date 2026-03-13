@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://1rehkje0e0ek"]
+
+[ext_resource type="Script" path="res://Main/main.gd" id="1_yg5do"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_yg5do")
+
+[node name="Players" type="Node2D" parent="."]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn")
+spawn_path = NodePath("../Players")
+
+[node name="Leashes" type="Node" parent="."]
+
+[node name="LeashSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Leashes")

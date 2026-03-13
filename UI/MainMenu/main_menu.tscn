@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch7lpgbn6kvc5"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/main_menu.gd" id="1_v2o55"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_v2o55")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 65.0
+offset_right = 161.0
+offset_bottom = 96.0
+text = "Start"
+
+[node name="JoinButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 101.0
+offset_right = 155.0
+offset_bottom = 132.0
+text = "Join
+"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]

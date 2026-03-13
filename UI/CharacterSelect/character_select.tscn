@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://fvxuyi55ub07"]
+
+[ext_resource type="Script" path="res://UI/CharacterSelect/character_select.gd" id="1_4q7tt"]
+
+[node name="CharacterSelect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4q7tt")
+
+[node name="NameInput" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 103.0
+offset_top = 25.0
+offset_right = 170.063
+offset_bottom = 56.0
+placeholder_text = "Name"
+
+[node name="PersonButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 61.0
+offset_right = 166.0
+offset_bottom = 92.0
+text = "Person"
+
+[node name="DogButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 122.0
+offset_right = 272.0
+offset_bottom = 153.0
+text = "Dog"
+
+[connection signal="pressed" from="PersonButton" to="." method="_on_spawn_button_pressed"]
+[connection signal="pressed" from="DogButton" to="." method="_on_dog_button_pressed"]

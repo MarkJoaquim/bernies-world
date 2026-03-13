@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://drxouc64fxb81"]
+
+[ext_resource type="Script" path="res://Leash/leash.gd" id="1_ouk0c"]
+
+[node name="Leash" type="Node"]
+script = ExtResource("1_ouk0c")
