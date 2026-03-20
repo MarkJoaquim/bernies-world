@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://cptlfeky0p3u1"]
+
+[ext_resource type="Script" path="res://UI/CharacterSelect/PlayerSelectOption/player_select_option.gd" id="1_icfad"]
+
+[node name="PlayerSelectOption" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_icfad")
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 209.0
+offset_top = 36.0
+offset_right = 302.0
+offset_bottom = 68.0
+
+[node name="Name" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 26.0
+offset_top = 38.0
+offset_right = 66.0
+offset_bottom = 61.0
+
+[node name="Icon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+offset_left = 72.0
+offset_top = 30.0
+offset_right = 112.0
+offset_bottom = 70.0
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -20,21 +20,39 @@ offset_right = 170.063
 offset_bottom = 56.0
 placeholder_text = "Name"
 
-[node name="PersonButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 106.0
+[node name="Container" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 159.0
+offset_top = 90.0
+offset_right = 722.0
+offset_bottom = 386.0
+
+[node name="PersonButton" type="Button" parent="Container"]
+layout_mode = 2
+offset_left = 39.0
+offset_top = 19.0
+offset_right = 143.0
+offset_bottom = 50.0
+text = " New Owner"
+
+[node name="DogButton" type="Button" parent="Container"]
+layout_mode = 2
+offset_left = 152.0
+offset_top = 20.0
+offset_right = 229.0
+offset_bottom = 51.0
+text = "Free Dog"
+
+[node name="PlayersPanel" type="VBoxContainer" parent="Container"]
+layout_mode = 2
+offset_left = 38.0
 offset_top = 61.0
-offset_right = 166.0
-offset_bottom = 92.0
-text = "Person"
+offset_right = 551.0
+offset_bottom = 325.0
 
-[node name="DogButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 212.0
-offset_top = 122.0
-offset_right = 272.0
-offset_bottom = 153.0
-text = "Dog"
+[node name="PlayerList" type="VBoxContainer" parent="Container/PlayersPanel"]
+unique_name_in_owner = true
+layout_mode = 2
 
-[connection signal="pressed" from="PersonButton" to="." method="_on_spawn_button_pressed"]
-[connection signal="pressed" from="DogButton" to="." method="_on_dog_button_pressed"]
+[connection signal="pressed" from="Container/PersonButton" to="." method="_on_spawn_button_pressed"]
+[connection signal="pressed" from="Container/DogButton" to="." method="_on_dog_button_pressed"]

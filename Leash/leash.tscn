@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" path="res://Leash/leash.gd" id="1_ouk0c"]
 
-[node name="Leash" type="Node"]
+[node name="Leash" type="Node3D"]
 script = ExtResource("1_ouk0c")
+
+[node name="Line" type="MeshInstance3D" parent="."]

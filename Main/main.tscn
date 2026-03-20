@@ -1,17 +1,44 @@
-[gd_scene load_steps=2 format=3 uid="uid://1rehkje0e0ek"]
+[gd_scene load_steps=3 format=3 uid="uid://1rehkje0e0ek"]
 
 [ext_resource type="Script" path="res://Main/main.gd" id="1_yg5do"]
 
-[node name="Main" type="Node2D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wnopk"]
+properties/0/path = NodePath(".:points")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("UI/ScoreLabel:text")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+
+[node name="Main" type="Node"]
 script = ExtResource("1_yg5do")
 
-[node name="Players" type="Node2D" parent="."]
+[node name="Players" type="Node" parent="."]
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Player/player.tscn")
+_spawnable_scenes = PackedStringArray("res://Player/Dog/dog.tscn", "res://Player/Person/person.tscn")
 spawn_path = NodePath("../Players")
 
 [node name="Leashes" type="Node" parent="."]
 
-[node name="LeashSpawner" type="MultiplayerSpawner" parent="."]
-spawn_path = NodePath("../Leashes")
+[node name="Collectables" type="Node" parent="."]
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Collectable/collectable.tscn")
+spawn_path = NodePath("../Collectables")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ScoreLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Score: 0"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_wnopk")

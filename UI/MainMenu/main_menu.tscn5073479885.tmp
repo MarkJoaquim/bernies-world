@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://ch7lpgbn6kvc5"]
+
+[ext_resource type="Script" uid="uid://ck4gfexnr61dk" path="res://UI/MainMenu/main_menu.gd" id="1_v2o55"]
+
+[node name="MainMenu" type="Control" unique_id=710909914]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_v2o55")
+
+[node name="StartButton" type="Button" parent="." unique_id=1578196308]
+layout_mode = 0
+offset_left = 243.0
+offset_top = 236.0
+offset_right = 289.0
+offset_bottom = 267.0
+text = "Start"
+
+[node name="JoinButton" type="Button" parent="." unique_id=1663504691]
+layout_mode = 0
+offset_left = 147.0
+offset_top = 234.0
+offset_right = 185.0
+offset_bottom = 265.0
+text = "Join
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=131737341]
+layout_mode = 0
+offset_left = 91.0
+offset_top = 74.0
+offset_right = 347.0
+offset_bottom = 74.0
+
+[node name="LobbyList" type="VBoxContainer" parent="VBoxContainer" unique_id=1945285529]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="CreateRoom" type="HBoxContainer" parent="VBoxContainer" unique_id=1981644322]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/CreateRoom" unique_id=1655469516]
+layout_mode = 2
+text = "Room:"
+
+[node name="LobbyName" type="LineEdit" parent="VBoxContainer/CreateRoom" unique_id=231698870]
+layout_mode = 2
+placeholder_text = "ABCD"
+
+[node name="CreateLobbyButton" type="Button" parent="VBoxContainer/CreateRoom" unique_id=1587315854]
+layout_mode = 2
+text = "Create"
+
+[node name="RefreshLobbyList" type="Button" parent="." unique_id=787381096]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 11.0
+offset_right = 346.0
+offset_bottom = 42.0
+text = "Refresh"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreateRoom/CreateLobbyButton" to="." method="_on_create_lobby_button_pressed"]
+[connection signal="pressed" from="RefreshLobbyList" to="." method="_on_refresh_lobby_list_pressed"]

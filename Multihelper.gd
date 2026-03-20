@@ -1,11 +1,12 @@
 extends Node
 
-var playerScenePath = preload("res://Player/player.tscn")
+var personScenePath = preload("res://Player/Person/person.tscn")
+var dogScenePath = preload("res://Player/Dog/dog.tscn")
 var leashScenePath = preload("res://Leash/leash.tscn")
 var isHost = false
 var mapSeed = randi()
-var map: Node2D
-var main: Node2D
+var map: Node
+var main: Node
 
 signal player_connected(peer_id)
 signal player_disconnected(peer_id)
@@ -52,14 +53,22 @@ func create_game():
 	if error:
 		return error
 	multiplayer.multiplayer_peer = peer
-	player_connected.emit(1, player_info)
+	player_connected.emit(1)
 	isHost = true
 	game.start_game()
 	
-func _on_player_connected(_id):
-	# not implemented
-	return
-	
+func _on_player_connected(id):
+	connectedPlayers.append(id)
+	if multiplayer.is_server():
+		sync_player_list.rpc_id(id, spawnedPlayers, connectedPlayers)
+
+@rpc("authority", "call_remote", "reliable")
+func sync_player_list(players: Dictionary, connected: Array) -> void:
+	spawnedPlayers = players
+	connectedPlayers = connected
+	for id in players:
+		player_spawned.emit(id, players[id])
+
 func _on_player_disconnected(_id):
 	# not implemented
 	return
@@ -94,24 +103,38 @@ func _register_character(new_player_info):
 	player_spawned.emit(new_player_id, new_player_info)
 	player_registered.emit()
 
-func requestSpawn(playerName, id, characterFile):
+func requestSpawn(playerName, id, type, linkedPlayerId = null):
 	player_info["name"] = playerName
-	player_info["body"] = characterFile
+	player_info["type"] = type
 	player_info["score"] = 0
 	player_info["id"] = id
 	spawnedPlayers[id] = player_info
 	_register_character.rpc(player_info)
-	spawnPlayer.rpc_id(1, playerName, id, characterFile)
+	spawnPlayer.rpc_id(1, playerName, id, type, linkedPlayerId)
 
 @rpc("any_peer", "call_local", "reliable")
-func spawnPlayer(playerName, id, characterFile):
-	var newPlayer := playerScenePath.instantiate()
-	newPlayer.playerName = playerName
-	newPlayer.characterFile = characterFile
+func spawnPlayer(playerName, id, type, linkedPlayerId = null):
+	var newPlayer: Player = (dogScenePath if type == "dog" else personScenePath).instantiate()
+	newPlayer.player_name = playerName
 	newPlayer.name = str(id)
-	var playersNode := main.get_node("Players")
+	var playersNode := game.get_node_or_null("Level/Main/Players")
 	playersNode.add_child(newPlayer)
-	newPlayer.sendPos.rpc(Vector2(0, 0))
-	if (characterFile == "dog"):
-		var leash: Leash = Leash.createLeash(playersNode.get_child(0), newPlayer)
-		main.get_node("Leashes").add_child(leash)
+	newPlayer.position = Vector3(0, 1, 0)
+	newPlayer.sendPos.rpc(Vector3(0, 1, 0))
+	if linkedPlayerId and multiplayer.is_server():
+		spawnLeash.rpc(id, linkedPlayerId, type)
+
+@rpc("authority", "call_local", "reliable")
+func spawnLeash(playerId: int, linkedPlayerId: int, type: String) -> void:
+	var playersNode := game.get_node_or_null("Level/Main/Players")
+	var person: Person
+	var dog: Dog
+	if type == "dog":
+		dog = playersNode.get_node_or_null(str(playerId)) as Dog
+		person = playersNode.get_node_or_null(str(linkedPlayerId)) as Person
+	else:
+		person = playersNode.get_node_or_null(str(playerId)) as Person
+		dog = playersNode.get_node_or_null(str(linkedPlayerId)) as Dog
+	if not person or not dog:
+		return
+	game.get_node("Level/Main/Leashes").add_child(Leash.createLeash(person, dog))

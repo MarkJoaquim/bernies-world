@@ -1,6 +1,9 @@
-extends Node2D
+extends Node3D
 
-func start_game():
+func _ready() -> void:
+	MultiplayerClient.lobby_joined.connect(start_game)
+
+func start_game(_lobby_name: String = "") -> void:
 	# Hide the UI and unpause to start the game.
 	get_tree().paused = false
 	# Only change level on the server.
