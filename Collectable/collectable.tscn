@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://mylqrndmgwor"]
+[gd_scene format=3 uid="uid://mylqrndmgwor"]
 
-[ext_resource type="Script" path="res://Collectable/collectable.gd" id="1_pfg7l"]
+[ext_resource type="Script" uid="uid://b2mgvpjc484wi" path="res://Collectable/collectable.gd" id="1_pfg7l"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i06gr"]
 
@@ -15,15 +15,15 @@ properties/2/path = NodePath(".:dog_points")
 properties/2/spawn = true
 properties/2/replication_mode = 0
 
-[node name="Collectable" type="Area3D"]
+[node name="Collectable" type="Area3D" unique_id=193830108]
 script = ExtResource("1_pfg7l")
 
-[node name="Hitbox" type="CollisionShape3D" parent="."]
+[node name="Hitbox" type="CollisionShape3D" parent="." unique_id=159489118]
 unique_name_in_owner = true
 shape = SubResource("SphereShape3D_i06gr")
 
-[node name="Sphere" type="CSGSphere3D" parent="."]
+[node name="Sphere" type="CSGSphere3D" parent="." unique_id=762222745]
 unique_name_in_owner = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1889489843]
 replication_config = SubResource("SceneReplicationConfig_82s6o")

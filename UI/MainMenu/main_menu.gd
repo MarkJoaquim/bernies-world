@@ -8,7 +8,7 @@ func _ready() -> void:
 	MultiplayerClient.lobby_list_update.connect(_update_lobbies)
 	MultiplayerClient.connected.connect(_on_ws_connected)
 	MultiplayerClient.lobby_joined.connect(_join_lobby)
-	MultiplayerClient.start("markeep.ddns.net")
+	MultiplayerClient.start("wss://markeep.ddns.net")
 
 func _on_start_button_pressed():
 	Multihelper.player_connected.connect(_on_connected, CONNECT_ONE_SHOT)
