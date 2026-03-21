@@ -34,29 +34,6 @@ func _ready():
 	multiplayer.connection_failed.connect(_on_connected_fail)
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
-func join_game(address = ""):
-	if address.is_empty():
-		address = DEFAULT_SERVER_IP
-	multiplayer.multiplayer_peer = null
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(address, PORT)
-	if error:
-		print(error)
-		print("there was an error joining, returning false")
-		return false
-	multiplayer.multiplayer_peer = peer
-	return true
-
-func create_game():
-	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_server(PORT)
-	if error:
-		return error
-	multiplayer.multiplayer_peer = peer
-	player_connected.emit(1)
-	isHost = true
-	game.start_game()
-	
 func _on_player_connected(id):
 	connectedPlayers.append(id)
 	if multiplayer.is_server():

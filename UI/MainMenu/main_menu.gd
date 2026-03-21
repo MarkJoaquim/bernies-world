@@ -10,14 +10,6 @@ func _ready() -> void:
 	MultiplayerClient.lobby_joined.connect(_join_lobby)
 	MultiplayerClient.start("wss://markeep.ddns.net")
 
-func _on_start_button_pressed():
-	Multihelper.player_connected.connect(_on_connected, CONNECT_ONE_SHOT)
-	Multihelper.create_game()
-
-func _on_join_button_pressed() -> void:
-	Multihelper.player_connected.connect(_on_connected, CONNECT_ONE_SHOT)
-	Multihelper.join_game()
-
 func _on_connected(_peer_id: int) -> void:
 	add_sibling(characterSelectScene.instantiate())
 	queue_free()

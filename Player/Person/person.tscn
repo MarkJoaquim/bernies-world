@@ -1,23 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0co5hijvcfiw"]
+[gd_scene format=3 uid="uid://d0co5hijvcfiw"]
 
-[ext_resource type="Script" path="res://Player/Person/person.gd" id="1_clyjt"]
+[ext_resource type="Script" uid="uid://6fa5d5y4d6lh" path="res://Player/Person/person.gd" id="1_clyjt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1pamp"]
 
-[node name="Person" type="CharacterBody3D"]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ojlhb"]
+properties/0/path = NodePath(".:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Hand:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[node name="Person" type="CharacterBody3D" unique_id=1052528445]
+physics_interpolation_mode = 1
 script = ExtResource("1_clyjt")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=448429109]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 0.819152, 0.573576, 0, -0.573576, 0.819152, 0, 3, 4)
 fov = 80.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=289874165]
 shape = SubResource("CapsuleShape3D_1pamp")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=425576886]
 
-[node name="Hand" type="CSGSphere3D" parent="."]
+[node name="Hand" type="CSGSphere3D" parent="." unique_id=1232550953]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 0)
 radius = 0.15
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=279832456]
+replication_config = SubResource("SceneReplicationConfig_ojlhb")

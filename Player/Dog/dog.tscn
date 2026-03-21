@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfhw7cg0qutyb"]
+[gd_scene format=3 uid="uid://dfhw7cg0qutyb"]
 
-[ext_resource type="Script" path="res://Player/Dog/dog.gd" id="1_clyjt"]
+[ext_resource type="Script" uid="uid://dmom6pf877la6" path="res://Player/Dog/dog.gd" id="1_clyjt"]
 [ext_resource type="PackedScene" path="res://UI/PauseMenu/pause_menu.tscn" id="2_pause"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_l8eyo"]
@@ -9,28 +9,32 @@
 properties/0/path = NodePath(".:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
-[node name="Dog" type="CharacterBody3D"]
+[node name="Dog" type="CharacterBody3D" unique_id=668355805]
+physics_interpolation_mode = 1
 script = ExtResource("1_clyjt")
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1623531756]
 unique_name_in_owner = true
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.8, 0)
 fov = 80.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1995117117]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_l8eyo")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=846478168]
 replication_config = SubResource("SceneReplicationConfig_7msdc")
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="." unique_id=216319283]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1193680135]
 layer = 100
 
-[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("2_pause")]
+[node name="PauseMenu" parent="CanvasLayer" unique_id=1573255990 instance=ExtResource("2_pause")]
 grow_horizontal = 2
 grow_vertical = 2

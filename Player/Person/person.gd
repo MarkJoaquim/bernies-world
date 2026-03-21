@@ -53,11 +53,11 @@ func _physics_process(delta: float) -> void:
 	}
 	sendInputstwo.rpc_id(1, inputData)
 	sendPos.rpc(position)
-	sendHandPos.rpc(%Hand.position)
+	#sendHandPos.rpc(%Hand.position)
 
 func get_hand():
 	return %Hand
 	
 @rpc("any_peer", "call_remote", "unreliable_ordered")
 func sendHandPos(pos):
-	%Hand.position = pos
+	pass #%Hand.position = pos
